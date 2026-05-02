@@ -1,0 +1,29 @@
+---
+description: PyMOL MCP — when using pymol tools (run_command, run_python, pymol_get)
+globs: "**/*"
+alwaysApply: false
+---
+
+# PyMOL MCP Rules
+
+## Think before execution
+- Don't assume system state or command behavior — verify when in doubt.
+- On unexpected command behavior, check `cmd.<name>.__doc__` before retrying.
+
+## Commands
+- One command per `run_command` call. Never batch — `do()` silently drops lines after the first.
+- `run_command` returning `"None"` ≠ success. Errors are swallowed by XML-RPC.
+- Don't prefix selections with object names starting with digits inside `byres()` / `within` (use `chain A and polymer`, not `1hho and chain A and polymer`).
+- `cmd.get_names()` returns objects only; use `cmd.get_names('all')` for selections too.
+- Always run `deselect` as the last command in every visualization workflow — removes red dot selection markers from the final view.
+
+## Tools — when to call which
+- `run_command` — Any single PyMOL command or Python one-liner (e.g. `show`, `color`, `zoom`, `hide`, `fetch`, `select`, `spectrum`, `deselect`, `print(...)`). No data returned. Prefer over `run_python` for simple statements — no try/except wrapping, cleaner output in the command window.
+- `run_python` — custom Python logic, `iterate`, `align`, anything needing loops or conditionals. Errors auto-captured to `/tmp/pymol_error.txt`. Code must start at column 0 — no leading newlines or indentation. PyMOL's interpreter throws `IndentationError` otherwise.
+- `pymol_get` — when you need data back from PyMOL. Calls any XML-RPC method directly. **Always try `pymol_get` first before using `run_python` to get data** — if a PyMOL method exists for it, `pymol_get` is cheaper and simpler.
+
+## Verify each step
+- `run_python` returns `OK` or `ERROR: <message>` directly — no separate error file check needed.
+- **After selections**: `pymol_get("count_atoms", ["sel"])` — if 0, stop and fix.
+- **To check loaded objects**: `pymol_get("get_names")`
+- On any `ERROR` response: stop, fix root cause, do not continue.

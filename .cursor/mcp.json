@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "pymol": {
+      "type": "stdio",
+      "command": "${workspaceFolder}/venv/bin/python",
+      "args": ["${workspaceFolder}/pymol_mcp_server.py"],
+      "env": {}
+    }
+  }
+}

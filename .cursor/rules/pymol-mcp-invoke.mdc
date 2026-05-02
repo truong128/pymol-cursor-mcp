@@ -1,0 +1,6 @@
+---
+description: Use PyMOL MCP when driving molecular visualization from this workspace
+alwaysApply: true
+---
+
+When the user asks to load, style, measure, or manipulate structures in PyMOL (PDB, cartoon, surface, selections, distances, etc.), use the **pymol** MCP tools: `run_command`, `run_python`, and `pymol_get`. Ensure PyMOL is running with XML-RPC (`pymol -R`, default `http://localhost:9123`) before relying on tools.

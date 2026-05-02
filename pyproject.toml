@@ -1,0 +1,12 @@
+[project]
+name = "pymol-cursor-mcp"
+version = "1.0.0"
+description = "Model Context Protocol server for PyMOL (Cursor / Claude Code)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["mcp>=1.27.0"]
+
+[project.urls]
+Homepage = "https://github.com/truong128/pymol-cursor-mcp"
+Repository = "https://github.com/truong128/pymol-cursor-mcp"
+Upstream = "https://github.com/nagarh/pymol-claude-code"
