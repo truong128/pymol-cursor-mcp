@@ -1,4 +1,4 @@
-# pymol-cursor-mcp
+# pymol-cursor-mcp - Truong Nguyen
 
 **Control [PyMOL](https://pymol.org) from [Cursor](https://cursor.com)** via the **Model Context Protocol (MCP)**. Describe structures and styles in plain language; the assistant calls PyMOL through XML‑RPC (`run_command`, `run_python`, `pymol_get`).
 
@@ -8,7 +8,7 @@ This project packages and documents a **Cursor-first** workflow. The same MCP se
 
 ---
 
-## Architecture (animated)
+## Architecture
 
 <p align="center">
   <img src="flow.svg" alt="PyMOL MCP Cursor workflow — animated SVG" width="920"/>
