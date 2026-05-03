@@ -96,8 +96,8 @@ Should print: `OK: MCP import + PyMOL RPC at http://localhost:9123`
 ## Credits
 
 - PyMOL MCP idea and original server: **[pymol-claude-code](https://github.com/nagarh/pymol-claude-code)** — Hemant Nagar.  
-- Packaging and Cursor-focused docs: **[truong128](https://github.com/truong128)**.
-
+- Packaging and Cursor-focused docs: **[truong128](https://github.com/truong128)**. - Truong Nguyen
+  
 ## License
 
 MIT — see [LICENSE](LICENSE).
