@@ -1,0 +1,192 @@
+<!-- Animated diagram; adapted from nagarh/pymol-claude-code flow.svg — Cursor workflow -->
+<svg viewBox="0 0 1100 640" width="1100" height="640" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @keyframes pulse-blue   { 0%,100%{filter:drop-shadow(0 0 5px #388bfd55)} 50%{filter:drop-shadow(0 0 18px #388bfd)} }
+    @keyframes pulse-cursor { 0%,100%{filter:drop-shadow(0 0 5px #22d3ee55)} 50%{filter:drop-shadow(0 0 18px #22d3ee)} }
+    @keyframes pulse-green  { 0%,100%{filter:drop-shadow(0 0 6px #3fb95055)} 50%{filter:drop-shadow(0 0 22px #3fb950)} }
+    @keyframes pulse-red    { 0%,100%{filter:drop-shadow(0 0 5px #f8514955)} 50%{filter:drop-shadow(0 0 18px #f85149)} }
+    @keyframes pulse-gold   { 0%,100%{filter:drop-shadow(0 0 4px #d2992255)} 50%{filter:drop-shadow(0 0 14px #d29922)} }
+    .n-user   { animation: pulse-blue   2.4s ease-in-out infinite; }
+    .n-cursor { animation: pulse-cursor 2.4s ease-in-out infinite 0.4s; }
+    .n-mcp    { animation: pulse-green  2.4s ease-in-out infinite 0.8s; }
+    .n-pymol  { animation: pulse-red    2.4s ease-in-out infinite 1.2s; }
+    .n-tool   { animation: pulse-gold   2.4s ease-in-out infinite; }
+    .glow-blue   { filter: drop-shadow(0 0 5px #58a6ff); }
+    .glow-cursor { filter: drop-shadow(0 0 5px #67e8f9); }
+    .glow-green  { filter: drop-shadow(0 0 5px #3fb950); }
+    .glow-gold   { filter: drop-shadow(0 0 4px #f0b429); }
+    .glow-orange { filter: drop-shadow(0 0 4px #ff7b54); }
+  </style>
+
+  <defs>
+    <marker id="arr-blue"   markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,9 3,0 6" fill="#388bfd"/></marker>
+    <marker id="arr-cursor" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,9 3,0 6" fill="#22d3ee"/></marker>
+    <marker id="arr-gold"   markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,9 3,0 6" fill="#d29922"/></marker>
+    <marker id="arr-red"    markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,9 3,0 6" fill="#f85149"/></marker>
+    <marker id="arr-orange" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,9 3,0 6" fill="#ff7b54"/></marker>
+    <filter id="lglow" x="-20%" y="-200%" width="140%" height="500%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="640" fill="#0d1117"/>
+
+  <!-- Title -->
+  <text x="550" y="38" text-anchor="middle" fill="#e6edf3" font-size="20" font-weight="700" font-family="Segoe UI,system-ui,sans-serif" letter-spacing="-0.3">PyMOL MCP — Cursor workflow</text>
+  <text x="550" y="58" text-anchor="middle" fill="#8b949e" font-size="12" font-family="Segoe UI,system-ui,sans-serif">Natural language → Cursor Agent → MCP → PyMOL XML-RPC → structure on screen</text>
+
+  <!-- Shift diagram content 80px down from original -->
+  <g transform="translate(0,80)">
+
+    <!-- Section labels -->
+    <text x="500" y="42" text-anchor="middle" fill="#3fb95088" font-size="10" font-family="Segoe UI,sans-serif" letter-spacing="2" font-weight="600">TOOL SELECTION</text>
+    <text x="822" y="42" text-anchor="middle" fill="#f8514988" font-size="10" font-family="Segoe UI,sans-serif" letter-spacing="2" font-weight="600">XML-RPC :9123</text>
+    <line x1="390" y1="48" x2="635" y2="48" stroke="#3fb95033" stroke-width="1" stroke-dasharray="4,3"/>
+    <line x1="700" y1="48" x2="970" y2="48" stroke="#f8514933" stroke-width="1" stroke-dasharray="4,3"/>
+
+    <!-- You → Cursor -->
+    <line x1="145" y1="280" x2="222" y2="280" stroke="#388bfd" stroke-width="2" opacity="0.35" marker-end="url(#arr-blue)"/>
+    <line x1="145" y1="280" x2="222" y2="280" stroke="#388bfd" stroke-width="1.5" opacity="0.8" filter="url(#lglow)"/>
+
+    <!-- Cursor → MCP -->
+    <line x1="340" y1="280" x2="427" y2="280" stroke="#22d3ee" stroke-width="2" opacity="0.35" marker-end="url(#arr-cursor)"/>
+    <line x1="340" y1="280" x2="427" y2="280" stroke="#22d3ee" stroke-width="1.5" opacity="0.8" filter="url(#lglow)"/>
+
+    <!-- MCP → run_command -->
+    <path d="M 565 280 C 615 280, 635 150, 650 150" stroke="#d29922" stroke-width="1.5" fill="none" opacity="0.55" filter="url(#lglow)"/>
+    <line x1="650" y1="150" x2="662" y2="150" stroke="#d29922" stroke-width="1.5" opacity="0.85" marker-end="url(#arr-gold)"/>
+
+    <!-- MCP → run_python -->
+    <line x1="565" y1="280" x2="654" y2="280" stroke="#d29922" stroke-width="1.8" opacity="0.45" marker-end="url(#arr-gold)"/>
+    <line x1="565" y1="280" x2="654" y2="280" stroke="#d29922" stroke-width="1.2" opacity="0.75" filter="url(#lglow)"/>
+
+    <!-- MCP → pymol_get -->
+    <path d="M 565 280 C 615 280, 635 410, 650 410" stroke="#d29922" stroke-width="1.5" fill="none" opacity="0.55" filter="url(#lglow)"/>
+    <line x1="650" y1="410" x2="662" y2="410" stroke="#d29922" stroke-width="1.5" opacity="0.85" marker-end="url(#arr-gold)"/>
+
+    <!-- run_command → PyMOL -->
+    <path d="M 758 150 C 820 150, 877 220, 877 265" stroke="#f85149" stroke-width="1.8" fill="none" opacity="0.45" marker-end="url(#arr-red)"/>
+    <path d="M 758 150 C 820 150, 877 220, 877 265" stroke="#f85149" stroke-width="1.2" fill="none" opacity="0.75" filter="url(#lglow)"/>
+
+    <!-- run_python → PyMOL -->
+    <line x1="758" y1="280" x2="869" y2="280" stroke="#f85149" stroke-width="1.8" opacity="0.45" marker-end="url(#arr-red)"/>
+    <line x1="758" y1="280" x2="869" y2="280" stroke="#f85149" stroke-width="1.2" opacity="0.75" filter="url(#lglow)"/>
+
+    <!-- pymol_get → PyMOL -->
+    <path d="M 758 410 C 820 410, 877 340, 877 295" stroke="#f85149" stroke-width="1.8" fill="none" opacity="0.45" marker-end="url(#arr-red)"/>
+    <path d="M 758 410 C 820 410, 877 340, 877 295" stroke="#f85149" stroke-width="1.2" fill="none" opacity="0.75" filter="url(#lglow)"/>
+
+    <!-- Return paths (dashed) -->
+    <line x1="662" y1="294" x2="565" y2="294" stroke="#ff7b54" stroke-width="1.3" stroke-dasharray="5,3" opacity="0.55" marker-end="url(#arr-orange)"/>
+    <path d="M 662 422 C 612 448, 553 390, 553 295" stroke="#ff7b54" stroke-width="1.3" fill="none" stroke-dasharray="5,3" opacity="0.55" marker-end="url(#arr-orange)"/>
+    <line x1="435" y1="294" x2="340" y2="294" stroke="#ff7b54" stroke-width="1.3" stroke-dasharray="5,3" opacity="0.55" marker-end="url(#arr-orange)"/>
+
+    <!-- ── ANIMATED DOTS ── -->
+
+    <!-- You → Cursor -->
+    <circle r="5" fill="#58a6ff" class="glow-blue"><animateMotion path="M 145 280 L 220 280" dur="1.5s" begin="0s"    repeatCount="indefinite"/></circle>
+    <circle r="5" fill="#58a6ff" class="glow-blue"><animateMotion path="M 145 280 L 220 280" dur="1.5s" begin="-0.5s" repeatCount="indefinite"/></circle>
+    <circle r="5" fill="#58a6ff" class="glow-blue"><animateMotion path="M 145 280 L 220 280" dur="1.5s" begin="-1.0s" repeatCount="indefinite"/></circle>
+
+    <!-- Cursor → MCP -->
+    <circle r="5" fill="#67e8f9" class="glow-cursor"><animateMotion path="M 340 280 L 425 280" dur="1.5s" begin="-0.2s"  repeatCount="indefinite"/></circle>
+    <circle r="5" fill="#67e8f9" class="glow-cursor"><animateMotion path="M 340 280 L 425 280" dur="1.5s" begin="-0.7s"  repeatCount="indefinite"/></circle>
+    <circle r="5" fill="#67e8f9" class="glow-cursor"><animateMotion path="M 340 280 L 425 280" dur="1.5s" begin="-1.2s"  repeatCount="indefinite"/></circle>
+
+    <!-- MCP → run_command -->
+    <circle r="4.5" fill="#f0b429" class="glow-gold"><animateMotion path="M 565 280 C 615 280, 635 150, 650 150" dur="1.4s" begin="0s"    repeatCount="indefinite"/></circle>
+    <circle r="4.5" fill="#f0b429" class="glow-gold"><animateMotion path="M 565 280 C 615 280, 635 150, 650 150" dur="1.4s" begin="-0.7s" repeatCount="indefinite"/></circle>
+
+    <!-- MCP → run_python -->
+    <circle r="4.5" fill="#f0b429" class="glow-gold"><animateMotion path="M 565 280 L 652 280" dur="1.4s" begin="-0.25s" repeatCount="indefinite"/></circle>
+    <circle r="4.5" fill="#f0b429" class="glow-gold"><animateMotion path="M 565 280 L 652 280" dur="1.4s" begin="-0.95s" repeatCount="indefinite"/></circle>
+
+    <!-- MCP → pymol_get -->
+    <circle r="4.5" fill="#f0b429" class="glow-gold"><animateMotion path="M 565 280 C 615 280, 635 410, 650 410" dur="1.4s" begin="-0.5s"  repeatCount="indefinite"/></circle>
+    <circle r="4.5" fill="#f0b429" class="glow-gold"><animateMotion path="M 565 280 C 615 280, 635 410, 650 410" dur="1.4s" begin="-1.15s" repeatCount="indefinite"/></circle>
+
+    <!-- run_command → PyMOL -->
+    <circle r="4.5" fill="#f85149" class="glow-orange"><animateMotion path="M 758 150 C 820 150, 877 220, 877 265" dur="1.3s" begin="0s"     repeatCount="indefinite"/></circle>
+    <circle r="4.5" fill="#f85149" class="glow-orange"><animateMotion path="M 758 150 C 820 150, 877 220, 877 265" dur="1.3s" begin="-0.65s" repeatCount="indefinite"/></circle>
+
+    <!-- run_python → PyMOL -->
+    <circle r="4.5" fill="#f85149" class="glow-orange"><animateMotion path="M 758 280 L 867 280" dur="1.3s" begin="-0.2s"  repeatCount="indefinite"/></circle>
+    <circle r="4.5" fill="#f85149" class="glow-orange"><animateMotion path="M 758 280 L 867 280" dur="1.3s" begin="-0.85s" repeatCount="indefinite"/></circle>
+
+    <!-- pymol_get → PyMOL -->
+    <circle r="4.5" fill="#f85149" class="glow-orange"><animateMotion path="M 758 410 C 820 410, 877 340, 877 295" dur="1.3s" begin="-0.4s"  repeatCount="indefinite"/></circle>
+    <circle r="4.5" fill="#f85149" class="glow-orange"><animateMotion path="M 758 410 C 820 410, 877 340, 877 295" dur="1.3s" begin="-1.05s" repeatCount="indefinite"/></circle>
+
+    <!-- Return dots -->
+    <circle r="3.5" fill="#ff7b54" class="glow-orange"><animateMotion path="M 662 294 L 565 294" dur="1.6s" begin="0s"    repeatCount="indefinite"/></circle>
+    <circle r="3.5" fill="#ff7b54" class="glow-orange"><animateMotion path="M 662 294 L 565 294" dur="1.6s" begin="-0.8s" repeatCount="indefinite"/></circle>
+    <circle r="3.5" fill="#ff7b54" class="glow-orange"><animateMotion path="M 662 422 C 612 448, 553 390, 553 295" dur="2.0s" begin="0s"    repeatCount="indefinite"/></circle>
+    <circle r="3.5" fill="#ff7b54" class="glow-orange"><animateMotion path="M 662 422 C 612 448, 553 390, 553 295" dur="2.0s" begin="-1.0s" repeatCount="indefinite"/></circle>
+    <circle r="3.5" fill="#ff7b54" class="glow-orange"><animateMotion path="M 435 294 L 340 294" dur="1.6s" begin="-0.3s" repeatCount="indefinite"/></circle>
+    <circle r="3.5" fill="#ff7b54" class="glow-orange"><animateMotion path="M 435 294 L 340 294" dur="1.6s" begin="-1.1s" repeatCount="indefinite"/></circle>
+
+    <!-- ── NODES ── -->
+
+    <g class="n-user">
+      <circle cx="90" cy="280" r="55" fill="#0d1117" stroke="#388bfd" stroke-width="2.5"/>
+      <text x="90" y="268" text-anchor="middle" font-size="24">🧑‍💻</text>
+      <text x="90" y="288" text-anchor="middle" fill="#e6edf3" font-size="12" font-weight="600" font-family="Segoe UI,sans-serif">You</text>
+      <text x="90" y="303" text-anchor="middle" fill="#8b949e" font-size="9"  font-family="Segoe UI,sans-serif">natural language</text>
+    </g>
+
+    <g class="n-cursor">
+      <circle cx="285" cy="280" r="55" fill="#0d1117" stroke="#22d3ee" stroke-width="2.5"/>
+      <text x="285" y="268" text-anchor="middle" font-size="22">⌘</text>
+      <text x="285" y="288" text-anchor="middle" fill="#e6edf3" font-size="11" font-weight="600" font-family="Segoe UI,sans-serif">Cursor</text>
+      <text x="285" y="303" text-anchor="middle" fill="#8b949e" font-size="9"  font-family="Segoe UI,sans-serif">Agent · MCP tools</text>
+    </g>
+
+    <g class="n-mcp">
+      <circle cx="500" cy="280" r="65" fill="#0d1117" stroke="#3fb950" stroke-width="2.5"/>
+      <text x="500" y="267" text-anchor="middle" font-size="26">⚙️</text>
+      <text x="500" y="287" text-anchor="middle" fill="#e6edf3" font-size="12" font-weight="600" font-family="Segoe UI,sans-serif">MCP Server</text>
+      <text x="500" y="302" text-anchor="middle" fill="#8b949e" font-size="8.5" font-family="SFMono-Regular,Consolas,monospace">pymol_mcp_server.py</text>
+    </g>
+
+    <g class="n-tool">
+      <circle cx="710" cy="150" r="48" fill="#0d1117" stroke="#d29922" stroke-width="2"/>
+      <text x="710" y="142" text-anchor="middle" fill="#d29922" font-size="10" font-weight="700" font-family="SFMono-Regular,Consolas,monospace">run_command</text>
+      <text x="710" y="157" text-anchor="middle" fill="#8b949e" font-size="8.5" font-family="Segoe UI,sans-serif">pymol.do(cmd)</text>
+      <text x="710" y="170" text-anchor="middle" fill="#484f58" font-size="8"   font-family="Segoe UI,sans-serif">show · color · fetch</text>
+    </g>
+
+    <g class="n-tool">
+      <circle cx="710" cy="280" r="48" fill="#0d1117" stroke="#d29922" stroke-width="2"/>
+      <text x="710" y="272" text-anchor="middle" fill="#d29922" font-size="10" font-weight="700" font-family="SFMono-Regular,Consolas,monospace">run_python</text>
+      <text x="710" y="287" text-anchor="middle" fill="#8b949e" font-size="8.5" font-family="Segoe UI,sans-serif">python block</text>
+      <text x="710" y="300" text-anchor="middle" fill="#484f58" font-size="8"   font-family="Segoe UI,sans-serif">OK · ERROR · loops</text>
+    </g>
+
+    <g class="n-tool">
+      <circle cx="710" cy="410" r="48" fill="#0d1117" stroke="#d29922" stroke-width="2"/>
+      <text x="710" y="402" text-anchor="middle" fill="#d29922" font-size="10" font-weight="700" font-family="SFMono-Regular,Consolas,monospace">pymol_get</text>
+      <text x="710" y="417" text-anchor="middle" fill="#8b949e" font-size="8.5" font-family="Segoe UI,sans-serif">XML-RPC call</text>
+      <text x="710" y="430" text-anchor="middle" fill="#484f58" font-size="8"   font-family="Segoe UI,sans-serif">returns data ↩</text>
+    </g>
+
+    <g class="n-pymol">
+      <circle cx="935" cy="280" r="58" fill="#0d1117" stroke="#f85149" stroke-width="2.5"/>
+      <text x="935" y="268" text-anchor="middle" font-size="26">🧬</text>
+      <text x="935" y="288" text-anchor="middle" fill="#e6edf3" font-size="12" font-weight="600" font-family="Segoe UI,sans-serif">PyMOL</text>
+      <text x="935" y="303" text-anchor="middle" fill="#8b949e" font-size="9"  font-family="Segoe UI,sans-serif">renders scene</text>
+    </g>
+
+    <!-- Arrow labels -->
+    <text x="187" y="266" text-anchor="middle" fill="#8b949e" font-size="10" font-family="Segoe UI,sans-serif">prompt</text>
+    <text x="388" y="266" text-anchor="middle" fill="#8b949e" font-size="10" font-family="Segoe UI,sans-serif">stdio</text>
+    <text x="602" y="195" text-anchor="middle" fill="#d2992299" font-size="9" font-family="Segoe UI,sans-serif">tool</text>
+    <text x="602" y="207" text-anchor="middle" fill="#d2992299" font-size="9" font-family="Segoe UI,sans-serif">call</text>
+    <text x="830" y="195" text-anchor="middle" fill="#f8514999" font-size="9" font-family="Segoe UI,sans-serif">XML-RPC</text>
+    <text x="613" y="308" text-anchor="middle" fill="#ff7b5466" font-size="8.5" font-family="Segoe UI,sans-serif">OK / ERR ↩</text>
+    <text x="590" y="456" text-anchor="middle" fill="#ff7b5466" font-size="8.5" font-family="Segoe UI,sans-serif">data ↩</text>
+    <text x="387" y="308" text-anchor="middle" fill="#ff7b5466" font-size="8.5" font-family="Segoe UI,sans-serif">response ↩</text>
+
+  </g>
+</svg>

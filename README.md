@@ -8,6 +8,14 @@ This project packages and documents a **Cursor-first** workflow. The same MCP se
 
 ---
 
+## Architecture (animated)
+
+<p align="center">
+  <img src="flow.svg" alt="PyMOL MCP Cursor workflow — animated SVG" width="920"/>
+</p>
+
+Same diagram style as [upstream `flow.svg`](https://github.com/nagarh/pymol-claude-code/blob/main/flow.svg), updated for **Cursor** (cyan node). Uses SVG/CSS animation (`animateMotion`, keyframes). If your Markdown preview looks static, open [`flow.svg`](flow.svg) directly on GitHub for the full motion.
+
 ## What you get
 
 | Piece | Purpose |
@@ -18,6 +26,7 @@ This project packages and documents a **Cursor-first** workflow. The same MCP se
 | `scripts/start_pymol_for_mcp.sh` | Launch PyMOL with `-R` (macOS/Linux) |
 | `verify_stack.py` | Sanity check: venv + MCP import + RPC to PyMOL |
 | `examples/restore_pocket_labels.pml` | Example PyMOL script (labels / pocket) |
+| `flow.svg` | Animated architecture diagram (same style as upstream repo) |
 
 ---
 

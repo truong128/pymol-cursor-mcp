@@ -2,6 +2,8 @@
 
 Follow **either** the short path or the detailed sections below.
 
+See also **`flow.svg`** in the repo root (animated SVG): **You → Cursor → MCP server → tools → PyMOL (XML-RPC :9123)** — same idea as [upstream](https://github.com/nagarh/pymol-claude-code/blob/main/flow.svg), styled for Cursor.
+
 ## 1. Prerequisites
 
 | Component | Notes |
